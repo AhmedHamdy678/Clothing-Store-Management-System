@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>ادارة المنتجات</title>
+</head>
+<body>
+    <div class="container">
+        <!-- الشريط الجانبي -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2><i class="fas fa-tshirt"></i> <span>متجر الملابس</span></h2>
+            </div>
+            <ul class="menu">
+                <li class="active" data-section="dashboard"><i class="fas fa-chart-pie"></i> <span>لوحة التحكم</span></li>
+                <li data-section="products"><i class="fas fa-box"></i> <span>إدارة المنتجات</span></li>
+                <li data-section="categories"><i class="fas fa-tags"></i> <span>الأقسام</span></li>
+                <li data-section="inventory"><i class="fas fa-warehouse"></i> <span>إدارة المخزون</span></li>
+                <li data-section="sales"><i class="fas fa-shopping-cart"></i> <span>المبيعات</span></li>
+            </ul>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <!-- الرأس -->
+            <div class="header">
+                <div class="search-bar">
+                    <input type="text" placeholder="بحث في المنتجات...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-info">
+                    <span>مرحباً، المدير</span>
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم لوحة التحكم -->
+            <div class="content-section active" id="dashboard-section">
+                <h2>لوحة تحكم متجر الملابس</h2>
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #4e73df;">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>125</h3>
+                            <p>إجمالي المنتجات</p>
+                        </div>
+                    </div>
+                    <div class="stat-card" id="orders-card" style="cursor: pointer;">
+                        <div class="stat-icon" style="background-color: #1cc88a;">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>طلبات اليوم</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #36b9cc;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>3</h3>
+                            <p>الأقسام</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #f6c23e;">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>إجمالي المبيعات</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart">
+                        <h3>المبيعات حسب القسم</h3>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                    <div class="chart">
+                        <h3>أكثر المنتجات مبيعاً</h3>
+                        <div id="top-products"></div>
+                        <div class="top-products-chart">
+                            <canvas id="topProductsChart"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم إدارة المنتجات -->
+            <div class="content-section" id="products-section">
+                <h2>إدارة المنتجات</h2>
+                <div class="cruds">
+                    <div class="header">
+                        <h2>إدارة المنتجات</h2>
+                        <p>إضافة وتعديل وحذف المنتجات</p>
+                    </div>
+
+                    <div class="inputs">
+                        <input id="title" type="text" placeholder="اسم المنتج">
+                        <div class="price">
+                            <input onkeyup="getTotal();" type="number" id="price" placeholder="السعر">
+                            <input onkeyup="getTotal();" type="number" id="discount" placeholder="الخصم">
+                            <div class="total">المجموع: <span></span></div>
+                        </div>
+                        <input type="number" id="count" placeholder="الكمية">
+                        <select id="category">
+                            <option value="">اختر القسم</option>
+                            <option value="رجالي">رجالي</option>
+                            <option value="حريمي">حريمي</option>
+                            <option value="أطفال">أطفال</option>
+                        </select>
+                        <div class="sizes-container">
+                            <h4>المقاسات المتاحة:</h4>
+                            <div class="size-options">
+                                <label><input type="checkbox" name="size" value="S"> S</label>
+                                <label><input type="checkbox" name="size" value="M"> M</label>
+                                <label><input type="checkbox" name="size" value="L"> L</label>
+                                <label><input type="checkbox" name="size" value="XL"> XL</label>
+                                <label><input type="checkbox" name="size" value="XXL"> XXL</label>
+                            </div>
+                        </div>
+                        <div class="colors-container">
+                            <h4>الألوان المتاحة:</h4>
+                            <div class="color-options">
+                                <label><input type="checkbox" name="color" value="أسود"> أسود</label>
+                                <label><input type="checkbox" name="color" value="أبيض"> أبيض</label>
+                                <label><input type="checkbox" name="color" value="أحمر"> أحمر</label>
+                                <label><input type="checkbox" name="color" value="أزرق"> أزرق</label>
+                                <label><input type="checkbox" name="color" value="أخضر"> أخضر</label>
+                            </div>
+                        </div>
+                        <button id="create">إضافة منتج</button>
+                        <div class="search-container">
+                            <input onkeyup="mainSearchData(this.value)" type="text" id="search" placeholder="بحث">
+                            <div class="btnSearch">
+                                <button id="searchTitle">بحث بالاسم</button>
+                                <button id="searchCategory">بحث بالقسم</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="delAll"></div>
+                    <div class="outputs">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>م</th>
+                                    <th>المنتج</th>
+                                    <th>السعر</th>
+                                    <th>الخصم</th>
+                                    <th>المجموع</th>
+                                    <th>القسم</th>
+                                    <th>المقاسات</th>
+                                    <th>الألوان</th>
+                                    <th>الموجود منه</th>
+                                    <th>تعديل</th>
+                                    <th>حذف</th>
+                                    <th>بيع</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم الأقسام -->
+            <div class="content-section" id="categories-section">
+                <h2>إدارة الأقسام</h2>
+                <div class="categories-container">
+                    <div class="category-card">
+                        <h3>منتجات رجالي</h3>
+                        <div class="category-stats">
+                            <p>عدد المنتجات: 45</p>
+                            <p>المقاسات: S, M, L, XL</p>
+                            <p>الألوان: أسود, أزرق, رمادي</p>
+                        </div>
+                        <button class="view-btn">عرض التفاصيل</button>
+                    </div>
+                    <div class="category-card">
+                        <h3>منتجات حريمي</h3>
+                        <div class="category-stats">
+                            <p>عدد المنتجات: 60</p>
+                            <p>المقاسات: S, M, L</p>
+                            <p>الألوان: وردي, بنفسجي, أسود</p>
+                        </div>
+                        <button class="view-btn">عرض التفاصيل</button>
+                    </div>
+                    <div class="category-card">
+                        <h3>منتجات أطفال</h3>
+                        <div class="category-stats">
+                            <p>عدد المنتجات: 20</p>
+                            <p>المقاسات: S, M</p>
+                            <p>الألوان: أزرق, وردي, أصفر</p>
+                        </div>
+                        <button class="view-btn">عرض التفاصيل</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة طلبات اليوم -->
+    <div class="modal-overlay" id="orders-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>طلبات اليوم</h3>
+                <button id="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="add-order-form">
+                    <input type="text" id="order-input" placeholder="أدخل تفاصيل الطلب الجديد...">
+                    <button id="add-order-btn">إضافة</button>
+                </div>
+                <ul id="orders-list">
+                    <!-- سيتم إضافة الطلبات هنا -->
+                </ul>
+                <div class="daily-notes-section" style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
+                    <label for="daily-notes" style="display: block; margin-bottom: 8px; font-weight: bold; color: #4e73df;">📝 ملاحظات عامة:</label>
+                    <textarea id="daily-notes" placeholder="اكتب ملاحظاتك اليومية هنا..." style="width: 100%; min-height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical;"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="main.js"></script>   <!-- الثالث -->
+
+</body>
+</html>
