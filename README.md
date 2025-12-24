@@ -1,4 +1,5 @@
 # 👔 Clothing Store Management System
+🔗 **Live Demo:** (https://ahmedhamdy678.github.io/Clothing-Store-Management-System/)
 
 ![Project Status](https://img.shields.io/badge/Status-Completed-success)
 ![License](https://img.shields.io/badge/License-MIT-blue)
@@ -37,7 +38,7 @@ The **Clothing Store Management System** is a comprehensive, web-based applicati
 
 1.  **Clone the repository**:
     ```bash
-    git clone https://github.com/yourusername/clothing-store-system.git
+    git clone https://github.com/AhmedHamdy678/Clothing-Store-Management-System
     ```
 2.  **Navigate to the project directory**:
     ```bash
@@ -76,9 +77,10 @@ Contributions are welcome! Please follow these steps:
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-## 📞 Contact
+## 📞 Contact Me 01115561531
 
 For any inquiries or feedback, please reach out:
 
-- **Email**: [your.email@example.com](mailto:your.email@example.com)
+- **Email**: (syda90215@gmail.com)
 - **GitHub**: [YourProfile](https://github.com/yourusername)
+
